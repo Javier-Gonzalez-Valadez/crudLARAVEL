@@ -1,11 +1,24 @@
+@extends('layouts.app')
 
-@if(Session::has('mensaje'))
-    {{ Session::get('mensaje') }}
-@endif
+@section('content')
+<div class="container">
+    
 
-<button class="btn btn-primary">
-    <a href="{{ url('empleado/create') }}" class="btn btn-primary" style="text-decoration:none;">Nuevo</a>
-</button>
+        @if(Session::has('mensaje'))
+
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <strong>{{ Session::get('mensaje') }}</strong> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        
+        @endif
+
+
+
+
+
+    <a href="{{ url('empleado/create') }}" class="btn btn-success"  style="text-decoration:none;">Nuevo</a>
+
 <table class="table table-responsive" >
     
        
@@ -34,14 +47,14 @@
                 <td>{{ $empleado->Correo }}</td>
                 <td>
                     <form action="{{ url('/empleado/'.$empleado->id.'/edit') }}" method="GET" style="display:inline-block">
-                        <input type="submit" value="Editar"> 
+                        <input type="submit" class="btn btn-primary" value="Editar"> 
                     </form>  
                     
                     <form action="{{ url('/empleado/'.$empleado->id) }}" method="post" style="display:inline-block">
                         @csrf
                         {{ method_field('DELETE') }}
                         <input type="submit" onclick="return confirm('¿Quieres Borrar?')" 
-                        value="Borrar">
+                        value="Borrar" class="btn btn-danger">
                     </form>
                 </td>
                 <td></td>
@@ -51,3 +64,5 @@
 
 
  </table>
+</div>
+@endsection  
